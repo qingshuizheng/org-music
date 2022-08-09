@@ -79,7 +79,7 @@ by looking for the password of an entry for googleapis.com.")
                           (org-music-format-link artist track start-time) track artist)
                 (org-music-format-link artist track start-time))))
     ('mpd (org-music-get-link-mpd full include-time display-mode))
-    (_ (user-error! "The specified music player: %s is not supported" org-music-player))))
+    (_ (user-error "The specified music player: %s is not supported" org-music-player))))
 
 (defun org-music-get-link-mpd (full &optional include-time display-mode)
   (with-temp-buffer
@@ -168,8 +168,8 @@ This action is reversed by `org-music-time-to-seconds'."
       (pcase org-music-player
         ('mpris (org-music-mpris-play file start-time end-time))
         ('mpd (org-music-mpd-play file start-time end-time))
-        (_ (user-error! "The specified music player: %s is not supported" org-music-player)))
-    (user-error! "Could not find the track '%s' by '%s'" title artist)))
+        (_ (user-error "The specified music player: %s is not supported" org-music-player)))
+    (user-error "Could not find the track '%s' by '%s'" title artist)))
 
 (defun org-music-mpd-play (file &optional start-time end-time)
   (let ((local-file (string-trim-left (expand-file-name file)
@@ -237,7 +237,7 @@ This action is reversed by `org-music-time-to-seconds'."
   (pcase org-music-track-search-method
     ('file (org-music-find-file artist title))
     ('beets (org-music-beets-find-file artist title))
-    (_ (user-error! "The specified music search method: %s is not supported" org-music-track-search-method))))
+    (_ (user-error "The specified music search method: %s is not supported" org-music-track-search-method))))
 
 (defun org-music-beets-find-file (artist title)
   "Find the file correspanding to a given artist and title."
